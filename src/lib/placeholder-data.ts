@@ -9,7 +9,8 @@ export type Comment = {
 export type Story = {
   id: string;
   title: string;
-  author: string;
+  author: string; // Used as author ID for now
+  authorAvatar?: string; // Optional author avatar for display
   description: string;
   coverImageUrl: string;
   category: string;
@@ -17,6 +18,12 @@ export type Story = {
   viewCount: number;
   likeCount: number; // Added for likes
   comments: Comment[]; // Added for comments
+};
+
+export type AuthorSubscription = {
+    authorId: string; // Corresponds to Story.author
+    authorName: string;
+    authorAvatar?: string;
 };
 
 export const categories = [
@@ -51,6 +58,7 @@ export const placeholderStories: Story[] = [
     id: "1",
     title: "The Last Dragon",
     author: "Jane Doe",
+    authorAvatar: "https://picsum.photos/seed/author_jane/40/40",
     description: "In a world where dragons are thought extinct, a young girl discovers a hidden egg.",
     coverImageUrl: "https://picsum.photos/seed/dragon/300/450",
     category: "Fantasy",
@@ -63,6 +71,7 @@ export const placeholderStories: Story[] = [
     id: "2",
     title: "Echoes of Mars",
     author: "John Smith",
+    authorAvatar: "https://picsum.photos/seed/author_john/40/40",
     description: "A lone astronaut stranded on Mars uncovers a secret that could rewrite human history.",
     coverImageUrl: "https://picsum.photos/seed/mars/300/450",
     category: "Science Fiction",
@@ -75,6 +84,7 @@ export const placeholderStories: Story[] = [
     id: "3",
     title: "The Bookstore Secret",
     author: "Alice Green",
+    // authorAvatar: "https://picsum.photos/seed/author_alice/40/40", No avatar for this one
     description: "A chance encounter in a quaint bookstore leads to unexpected love and a hidden family secret.",
     coverImageUrl: "https://picsum.photos/seed/bookstore/300/450",
     category: "Romance",
@@ -87,6 +97,7 @@ export const placeholderStories: Story[] = [
     id: "4",
     title: "Shadow Over Blackwood",
     author: "Robert Black",
+    authorAvatar: "https://picsum.photos/seed/author_robert/40/40",
     description: "A detective investigates a series of strange disappearances in a fog-shrouded town.",
     coverImageUrl: "https://picsum.photos/seed/mystery/300/450",
     category: "Mystery",
@@ -99,6 +110,7 @@ export const placeholderStories: Story[] = [
     id: "5",
     title: "Beneath the Ice",
     author: "Clara Frost",
+    authorAvatar: "https://picsum.photos/seed/author_clara/40/40",
     description: "An Arctic research team awakens something ancient and terrifying from its frozen slumber.",
     coverImageUrl: "https://picsum.photos/seed/horror/300/450",
     category: "Horror",
@@ -111,6 +123,7 @@ export const placeholderStories: Story[] = [
     id: "6",
     title: "Crown of Embers",
     author: "Leo Heartwood",
+    authorAvatar: "https://picsum.photos/seed/author_leo/40/40",
     description: "A deposed princess fights to reclaim her throne with the help of a roguish mercenary.",
     coverImageUrl: "https://picsum.photos/seed/princess/300/450",
     category: "Fantasy",
@@ -123,6 +136,7 @@ export const placeholderStories: Story[] = [
     id: "7",
     title: "Cybernetic Dawn",
     author: "Unit 734",
+    // authorAvatar: "https://picsum.photos/seed/author_unit734/40/40", // AI might not have an avatar
     description: "In a future ruled by AI, a malfunctioning android develops consciousness and seeks freedom.",
     coverImageUrl: "https://picsum.photos/seed/cyber/300/450",
     category: "Science Fiction",
@@ -135,6 +149,7 @@ export const placeholderStories: Story[] = [
     id: "8",
     title: "Summer Serenade",
     author: "Isabelle Moreau",
+    authorAvatar: "https://picsum.photos/seed/author_isabelle/40/40",
     description: "Two rival musicians find themselves falling in love during a summer music festival.",
     coverImageUrl: "https://picsum.photos/seed/music/300/450",
     category: "Romance",
@@ -147,6 +162,7 @@ export const placeholderStories: Story[] = [
     id: "9",
     title: "Whispers in the Walls",
     author: "Edgar Allen Poe Jr.",
+    authorAvatar: "https://picsum.photos/seed/author_edgar/40/40",
     description: "A family moves into an old house only to discover it's haunted by more than just memories.",
     coverImageUrl: "https://picsum.photos/seed/haunted/300/450",
     category: "Horror",
@@ -159,6 +175,7 @@ export const placeholderStories: Story[] = [
     id: "10",
     title: "The Gilded Cage",
     author: "Victoria Holt II",
+    authorAvatar: "https://picsum.photos/seed/author_victoria/40/40",
     description: "A young governess in Victorian England uncovers dark secrets within the noble family she serves.",
     coverImageUrl: "https://picsum.photos/seed/victorian/300/450",
     category: "Mystery",
@@ -167,6 +184,14 @@ export const placeholderStories: Story[] = [
     comments: generateComments("10", 6), // Added
     content: `October 1888. Ashworth Manor was imposing, cold despite the roaring fires. Lord Ashworth was stern, his wife perpetually ill, and the children, Thomas and Clara, seemed unnaturally subdued. My duties as governess were simple, yet an undercurrent of tension permeated the grand house. Doors locked inexplicably. Servants exchanged hushed warnings. Then came the discovery of the previous governess's diary, hidden beneath a loose floorboard. Its pages spoke of fear, of clandestine meetings, and a secret the Ashworths would kill to protect. I realized I wasn't just teaching children; I was trapped in a gilded cage, and the key to my survival lay in uncovering the truth before I met the same fate as my predecessor.`,
   },
+];
+
+// Placeholder for current user's subscriptions
+// In a real app, this would be fetched based on the logged-in user
+const placeholderUserSubscriptions: AuthorSubscription[] = [
+    { authorId: "Jane Doe", authorName: "Jane Doe", authorAvatar: "https://picsum.photos/seed/author_jane/40/40" },
+    { authorId: "Robert Black", authorName: "Robert Black", authorAvatar: "https://picsum.photos/seed/author_robert/40/40" },
+    { authorId: "Isabelle Moreau", authorName: "Isabelle Moreau", authorAvatar: "https://picsum.photos/seed/author_isabelle/40/40" },
 ];
 
 // Simulate fetching data
@@ -197,7 +222,21 @@ export const getStories = async (
 
 export const getStoryById = async (id: string): Promise<Story | undefined> => {
   await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate network delay
-  return placeholderStories.find((story) => story.id === id);
+  const story = placeholderStories.find((story) => story.id === id);
+  // Add author avatar to the fetched story if not already present (for consistency)
+  if (story && !story.authorAvatar) {
+      const authorSub = placeholderUserSubscriptions.find(sub => sub.authorId === story.author);
+      if(authorSub?.authorAvatar) {
+          story.authorAvatar = authorSub.authorAvatar;
+      } else {
+          // Fallback if author isn't in subscriptions (might happen)
+          const otherStoryByAuthor = placeholderStories.find(s => s.author === story.author && s.authorAvatar);
+          if (otherStoryByAuthor) {
+              story.authorAvatar = otherStoryByAuthor.authorAvatar;
+          }
+      }
+  }
+  return story;
 };
 
 export const getCategories = async (): Promise<string[]> => {
@@ -228,3 +267,27 @@ export const getTrendingStoriesByGenre = async (limitPerGenre: number = 3): Prom
 
     return trending;
 };
+
+// Simulate fetching user's subscriptions
+export const getUserSubscriptions = async (): Promise<AuthorSubscription[]> => {
+    await new Promise(resolve => setTimeout(resolve, 200)); // Simulate network delay
+    // In a real app, fetch this based on the logged-in user ID
+    return placeholderUserSubscriptions;
+}
+
+// Simulate adding/removing a subscription (no backend interaction)
+export const toggleSubscription = async (authorId: string, authorName: string, authorAvatar?: string): Promise<boolean> => {
+    await new Promise(resolve => setTimeout(resolve, 300)); // Simulate API call
+    const index = placeholderUserSubscriptions.findIndex(sub => sub.authorId === authorId);
+    if (index > -1) {
+        // Unsubscribe
+        placeholderUserSubscriptions.splice(index, 1);
+        console.log(`Unsubscribed from ${authorName}`);
+        return false; // Return new subscription state (false = not subscribed)
+    } else {
+        // Subscribe
+        placeholderUserSubscriptions.push({ authorId, authorName, authorAvatar });
+        console.log(`Subscribed to ${authorName}`);
+        return true; // Return new subscription state (true = subscribed)
+    }
+}

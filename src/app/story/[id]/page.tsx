@@ -9,7 +9,9 @@ import { Eye, Heart, MessageSquare } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { CommentsSection } from './_components/comments-section';
 import { LikeButton } from './_components/like-button';
+import { SubscribeButton } from './_components/subscribe-button'; // Import SubscribeButton
 import { formatNumber } from '@/lib/utils'; // Import formatting utility
+import Link from 'next/link';
 
 
 interface StoryPageProps {
@@ -48,12 +50,22 @@ export default async function StoryPage({ params }: StoryPageProps) {
           <CardTitle className="text-3xl md:text-4xl font-bold mb-2">
             {story.title}
           </CardTitle>
-          <div className="flex items-center gap-3 mb-3">
-            <Avatar className="h-10 w-10 border-2 border-background">
-              {/* Placeholder for author image */}
-              <AvatarFallback>{story.author.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <span className="font-medium text-lg">{story.author}</span>
+           {/* Author Info and Subscribe Button */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+            <Link href={`/author/${encodeURIComponent(story.author)}`} className="flex items-center gap-3 group w-fit">
+                <Avatar className="h-10 w-10 border-2 border-background group-hover:ring-2 group-hover:ring-primary transition-all">
+                  {story.authorAvatar && <AvatarImage src={story.authorAvatar} alt={story.author} />}
+                  <AvatarFallback>{story.author.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <span className="font-medium text-lg group-hover:text-primary transition-colors">{story.author}</span>
+             </Link>
+              {/* Subscribe button - uses client component */}
+              <SubscribeButton
+                  authorId={story.author}
+                  authorName={story.author}
+                  authorAvatar={story.authorAvatar}
+                  className="sm:ml-4 mt-2 sm:mt-0 w-full sm:w-auto" // Adjust margin/width for layout
+               />
           </div>
           <Badge variant="secondary" className="w-fit text-foreground bg-secondary/90">{story.category}</Badge>
         </CardHeader>
@@ -63,7 +75,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
           </CardDescription>
 
           {/* Stats Section */}
-          <div className="flex items-center gap-6 text-muted-foreground mb-6 text-sm">
+          <div className="flex items-center flex-wrap gap-x-6 gap-y-2 text-muted-foreground mb-6 text-sm">
              <div className="flex items-center gap-1.5">
                 <Eye className="w-4 h-4" />
                 <span>{formatNumber(story.viewCount)} views</span>
@@ -76,6 +88,9 @@ export default async function StoryPage({ params }: StoryPageProps) {
                 <MessageSquare className="w-4 h-4" />
                 <span>{formatNumber(story.comments.length)} comments</span>
              </div>
+              <span className="text-xs ml-auto hidden md:inline">
+                Published {formatDistanceToNow(new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 30), { addSuffix: true })} {/* Example random date */}
+              </span>
           </div>
 
 
@@ -87,13 +102,17 @@ export default async function StoryPage({ params }: StoryPageProps) {
             ))}
           </article>
         </CardContent>
-        <CardFooter className="p-6 bg-muted/50 border-t">
+        <CardFooter className="p-6 bg-muted/50 border-t flex items-center justify-between flex-wrap gap-2">
             {/* Interactive Like Button */}
            <LikeButton initialLikes={story.likeCount} storyId={story.id} />
+
             {/* Placeholder for Share button */}
              {/* <Button variant="outline" size="sm">
                 <Share2 className="mr-2 h-4 w-4" /> Share
              </Button> */}
+             <span className="text-xs text-muted-foreground md:hidden">
+                Published {formatDistanceToNow(new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 30), { addSuffix: true })} {/* Example random date */}
+              </span>
         </CardFooter>
       </Card>
 
