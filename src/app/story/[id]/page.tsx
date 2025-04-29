@@ -10,6 +10,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { CommentsSection } from './_components/comments-section';
 import { LikeButton } from './_components/like-button';
 import { SubscribeButton } from './_components/subscribe-button'; // Import SubscribeButton
+import { ShareButton } from './_components/share-button'; // Import ShareButton
 import { formatNumber } from '@/lib/utils'; // Import formatting utility
 import Link from 'next/link';
 
@@ -102,14 +103,15 @@ export default async function StoryPage({ params }: StoryPageProps) {
             ))}
           </article>
         </CardContent>
-        <CardFooter className="p-6 bg-muted/50 border-t flex items-center justify-between flex-wrap gap-2">
-            {/* Interactive Like Button */}
-           <LikeButton initialLikes={story.likeCount} storyId={story.id} />
+        <CardFooter className="p-6 bg-muted/50 border-t flex items-center justify-between flex-wrap gap-4"> {/* Increased gap */}
+           <div className="flex items-center gap-2"> {/* Group Like and Share */}
+               {/* Interactive Like Button */}
+              <LikeButton initialLikes={story.likeCount} storyId={story.id} />
 
-            {/* Placeholder for Share button */}
-             {/* <Button variant="outline" size="sm">
-                <Share2 className="mr-2 h-4 w-4" /> Share
-             </Button> */}
+              {/* Share Button */}
+              <ShareButton storyTitle={story.title} storyDescription={story.description} />
+            </div>
+
              <span className="text-xs text-muted-foreground md:hidden">
                 Published {formatDistanceToNow(new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 30), { addSuffix: true })} {/* Example random date */}
               </span>
