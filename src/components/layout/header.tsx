@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { cn } from '@/lib/utils'; // Ensure cn is imported
+import { ThemeToggle } from '@/components/theme-toggle'; // Import ThemeToggle
 
 export function Header() {
   const pathname = usePathname();
@@ -104,6 +105,7 @@ export function Header() {
            )}
            {/* Add Login/Signup/User Avatar later */}
            {/* <Button variant="outline" size="sm">Sign In</Button> */}
+            <ThemeToggle /> {/* Add the theme toggle button */}
         </div>
       </div>
     </header>

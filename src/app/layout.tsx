@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/header';
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from '@/components/theme-provider';
 
 
 const geistSans = Geist({
@@ -27,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full" suppressHydrationWarning> {/* suppressHydrationWarning for next-themes */}
       <body
         className={cn(
           'h-full font-sans antialiased',
@@ -35,16 +36,23 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow container mx-auto px-4 py-8">
-            {children}
-          </main>
-           <Toaster />
-          <footer className="py-4 text-center text-muted-foreground text-sm">
-             © {new Date().getFullYear()} Story Weaver. All rights reserved.
-          </footer>
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow container mx-auto px-4 py-8">
+              {children}
+            </main>
+             <Toaster />
+            <footer className="py-4 text-center text-muted-foreground text-sm">
+               © {new Date().getFullYear()} Story Weaver. All rights reserved.
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
