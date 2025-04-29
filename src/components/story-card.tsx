@@ -10,6 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Eye, Heart, MessageSquare } from 'lucide-react'; // Import icons
+import { formatNumber } from '@/lib/utils'; // Import number formatter
 
 interface StoryCardProps {
   story: Story;
@@ -33,14 +35,29 @@ export function StoryCard({ story }: StoryCardProps) {
           <CardTitle className="text-lg font-semibold mb-1 leading-tight group-hover:text-primary transition-colors">
             {story.title}
           </CardTitle>
-          <CardDescription className="text-sm text-muted-foreground line-clamp-2 mb-2">
+          <CardDescription className="text-sm text-muted-foreground line-clamp-1 mb-2">
             by {story.author}
           </CardDescription>
-           <p className="text-sm text-foreground/80 line-clamp-3">
+           <p className="text-sm text-foreground/80 line-clamp-3 mb-3">
              {story.description}
            </p>
+           {/* Stats Row */}
+           <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1">
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>{formatNumber(story.viewCount)}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                    <Heart className="w-3.5 h-3.5" />
+                    <span>{formatNumber(story.likeCount)}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>{formatNumber(story.comments.length)}</span>
+                </div>
+            </div>
         </CardContent>
-        <CardFooter className="p-4 pt-0">
+        <CardFooter className="p-4 pt-2"> {/* Adjusted padding */}
           <Badge variant="secondary">{story.category}</Badge>
         </CardFooter>
       </Card>

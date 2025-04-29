@@ -4,6 +4,7 @@ import { StoryCard } from '@/components/story-card';
 import { SearchBar } from './_components/search-bar';
 import { CategoryFilter } from './_components/category-filter';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Eye, Heart, MessageSquare } from 'lucide-react';
 
 interface DiscoverPageProps {
   searchParams?: {
@@ -22,10 +23,12 @@ export default function DiscoverPage({ searchParams }: DiscoverPageProps) {
 
       <div className="flex flex-col md:flex-row gap-4 mb-6 items-center">
         {/* Wrap Filters in Suspense for better UX */}
-        <Suspense fallback={<Skeleton className="h-10 w-full md:w-1/3 lg:w-1/4" />}>
+        <Suspense fallback={<Skeleton className="h-10 w-full md:w-[180px] lg:w-[200px]" />}>
            <CategoryFilterWrapper selectedCategory={selectedCategory} />
         </Suspense>
-        <SearchBar initialQuery={searchTerm} />
+        <Suspense fallback={<Skeleton className="h-10 flex-grow" />}>
+           <SearchBar initialQuery={searchTerm} />
+        </Suspense>
       </div>
 
       {/* Wrap StoryList in Suspense for loading state */}
@@ -69,13 +72,23 @@ function StoryGridSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {[...Array(8)].map((_, i) => (
-        <div key={i} className="space-y-2">
-          <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-          <Skeleton className="h-5 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-           <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-          <Skeleton className="h-6 w-1/3" />
+        <div key={i} className="border rounded-lg overflow-hidden flex flex-col">
+          <Skeleton className="aspect-[2/3] w-full" />
+          <div className="p-4 flex-grow space-y-2">
+              <Skeleton className="h-5 w-3/4" /> {/* Title */}
+              <Skeleton className="h-4 w-1/2" /> {/* Author */}
+              <Skeleton className="h-4 w-full" /> {/* Description line 1 */}
+              <Skeleton className="h-4 w-5/6" /> {/* Description line 2 */}
+              {/* Stats Skeleton */}
+              <div className="flex items-center gap-4 pt-1">
+                 <Skeleton className="h-4 w-10" />
+                 <Skeleton className="h-4 w-10" />
+                 <Skeleton className="h-4 w-10" />
+              </div>
+          </div>
+           <div className="p-4 pt-2"> {/* Footer */}
+              <Skeleton className="h-5 w-1/4" /> {/* Badge */}
+           </div>
         </div>
       ))}
     </div>
