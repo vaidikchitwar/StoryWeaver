@@ -101,6 +101,26 @@ export const placeholderStories: Story[] = [
     viewCount: 7600,
     content: `Chapter 1: The Clash\n\nEliza slammed her violin case onto the grass, glaring at the stage. That was *her* practice slot. And currently occupying it was Julian Vance, guitar god extraordinaire and her arch-nemesis since kindergarten music class. His band's amplified rock music drowned out the pastoral tranquility of the Meadowbrook Summer Festival grounds. "Vance!" she yelled over the din. He stopped mid-riff, a smirk playing on his lips. "Well, if it isn't Maestro Montgomery. Come to bask in true musical genius?" Their rivalry was legendary, fueled by competitive parents and clashing styles. But as the summer unfolded, forced proximity during festival events led to grudging respect, shared late-night practice sessions, and a harmony neither of them expected.`,
   },
+   {
+    id: "9",
+    title: "Whispers in the Walls",
+    author: "Edgar Allen Poe Jr.",
+    description: "A family moves into an old house only to discover it's haunted by more than just memories.",
+    coverImageUrl: "https://picsum.photos/seed/haunted/300/450",
+    category: "Horror",
+    viewCount: 10500,
+    content: `Day 1: The house stood on a hill overlooking the town, silhouetted against the perpetual grey sky. It was cheaper than anything else, for reasons the realtor politely avoided. Old houses have quirks, he'd said. Quirks. Like the cold spots that moved. Or the whispers that seemed to echo from within the walls themselves, just at the edge of hearing. Little Emily drew pictures of 'the smiling man' she saw in the hallway mirror. My wife, Sarah, blamed drafts and old pipes. I wanted to believe her. But last night, I heard it too. A child's giggle, coming from the boarded-up nursery. And the distinct sound of small footsteps pacing overhead. This house doesn't have quirks. It has occupants.`,
+  },
+   {
+    id: "10",
+    title: "The Gilded Cage",
+    author: "Victoria Holt II",
+    description: "A young governess in Victorian England uncovers dark secrets within the noble family she serves.",
+    coverImageUrl: "https://picsum.photos/seed/victorian/300/450",
+    category: "Mystery",
+    viewCount: 9100,
+    content: `October 1888. Ashworth Manor was imposing, cold despite the roaring fires. Lord Ashworth was stern, his wife perpetually ill, and the children, Thomas and Clara, seemed unnaturally subdued. My duties as governess were simple, yet an undercurrent of tension permeated the grand house. Doors locked inexplicably. Servants exchanged hushed warnings. Then came the discovery of the previous governess's diary, hidden beneath a loose floorboard. Its pages spoke of fear, of clandestine meetings, and a secret the Ashworths would kill to protect. I realized I wasn't just teaching children; I was trapped in a gilded cage, and the key to my survival lay in uncovering the truth before I met the same fate as my predecessor.`,
+  },
 ];
 
 // Simulate fetching data
