@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
+    darkMode: ["class"], // Keep using class strategy
     content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -86,22 +86,6 @@ export default {
                '--tw-prose-pre-bg': 'hsl(var(--card))',
                '--tw-prose-th-borders': 'hsl(var(--border))',
                '--tw-prose-td-borders': 'hsl(var(--border))',
-               '--tw-prose-invert-body': 'hsl(var(--foreground))', // Use dark foreground
-               '--tw-prose-invert-headings': 'hsl(var(--foreground))',
-               '--tw-prose-invert-lead': 'hsl(var(--muted-foreground))',
-               '--tw-prose-invert-links': 'hsl(var(--primary))',
-               '--tw-prose-invert-bold': 'hsl(var(--foreground))',
-               '--tw-prose-invert-counters': 'hsl(var(--muted-foreground))',
-               '--tw-prose-invert-bullets': 'hsl(var(--border))',
-               '--tw-prose-invert-hr': 'hsl(var(--border))',
-               '--tw-prose-invert-quotes': 'hsl(var(--foreground))',
-               '--tw-prose-invert-quote-borders': 'hsl(var(--border))',
-               '--tw-prose-invert-captions': 'hsl(var(--muted-foreground))',
-               '--tw-prose-invert-code': 'hsl(var(--foreground))',
-               '--tw-prose-invert-pre-code': 'hsl(var(--card-foreground))',
-               '--tw-prose-invert-pre-bg': 'hsl(var(--card))',
-               '--tw-prose-invert-th-borders': 'hsl(var(--border))',
-               '--tw-prose-invert-td-borders': 'hsl(var(--border))',
                 p: {
                     // Add default paragraph spacing if needed
                     // marginBottom: theme('spacing.6'),
@@ -123,6 +107,29 @@ export default {
                lineHeight: theme('lineHeight.relaxed'),
              },
            },
+           // Add specific prose styles for .dark and .darkest if necessary
+            dark: { css: { /* ... dark specific prose overrides ... */ } },
+            // Define darkest variant styles for prose
+            darkest: {
+               css: {
+                  '--tw-prose-body': 'hsl(var(--foreground))',
+                  '--tw-prose-headings': 'hsl(var(--foreground))',
+                  '--tw-prose-lead': 'hsl(var(--muted-foreground))',
+                  '--tw-prose-links': 'hsl(var(--primary))',
+                  '--tw-prose-bold': 'hsl(var(--foreground))',
+                  '--tw-prose-counters': 'hsl(var(--muted-foreground))',
+                  '--tw-prose-bullets': 'hsl(var(--border))',
+                  '--tw-prose-hr': 'hsl(var(--border))',
+                  '--tw-prose-quotes': 'hsl(var(--foreground))',
+                  '--tw-prose-quote-borders': 'hsl(var(--border))',
+                  '--tw-prose-captions': 'hsl(var(--muted-foreground))',
+                  '--tw-prose-code': 'hsl(var(--foreground))',
+                  '--tw-prose-pre-code': 'hsl(var(--card-foreground))',
+                  '--tw-prose-pre-bg': 'hsl(var(--card))',
+                  '--tw-prose-th-borders': 'hsl(var(--border))',
+                  '--tw-prose-td-borders': 'hsl(var(--border))',
+                }
+             },
         }),
   		keyframes: {
   			'accordion-down': {
@@ -146,27 +153,13 @@ export default {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
   		},
-        textShadow: { // Add text-shadow utility
-           DEFAULT: '0 1px 3px rgb(0 0 0 / 0.1), 0 1px 2px rgb(0 0 0 / 0.06)',
-           sm: '0 1px 2px rgb(0 0 0 / 0.05)',
-           md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06)',
-           lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05)',
-           none: 'none',
-         },
   	}
   },
   plugins: [
     require("tailwindcss-animate"),
     require('@tailwindcss/typography'), // Added typography plugin
-     function ({ matchUtilities, theme }: { matchUtilities: any, theme: any }) { // Add text-shadow utility function
-       matchUtilities(
-         {
-           'text-shadow': (value: any) => ({
-             textShadow: value,
-           }),
-         },
-         { values: theme('textShadow') }
-       )
-     },
+    function ({ addVariant }: { addVariant: any }) { // Add darkest variant selector
+        addVariant('darkest', '.darkest &');
+    },
   ],
 } satisfies Config;

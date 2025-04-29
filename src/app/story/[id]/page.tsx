@@ -44,7 +44,8 @@ export default async function StoryPage({ params }: StoryPageProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         </div>
         <CardHeader className="relative z-10 -mt-20 md:-mt-24 px-6 pb-6 text-background">
-          <CardTitle className="text-3xl md:text-4xl font-bold mb-2 text-shadow">
+           {/* Removed text-shadow class */}
+          <CardTitle className="text-3xl md:text-4xl font-bold mb-2">
             {story.title}
           </CardTitle>
           <div className="flex items-center gap-3 mb-3">
@@ -80,7 +81,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
 
           <Separator className="my-6" />
 
-          <article className="prose prose-lg max-w-none dark:prose-invert text-foreground/90">
+          <article className="prose prose-lg max-w-none dark:prose-invert darkest:prose-darkest text-foreground/90">
             {paragraphs.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -102,6 +103,6 @@ export default async function StoryPage({ params }: StoryPageProps) {
   );
 }
 
-// Add basic text shadow utility if needed in globals.css or here via style
-// Add prose styles to globals.css or tailwind config if needed
+
 // Ensure globals.css has readable font styles
+// Apply prose-darkest for darkest theme compatibility
