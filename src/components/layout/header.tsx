@@ -1,11 +1,13 @@
+// @/components/layout/header.tsx
 'use client';
 
 import Link from 'next/link';
-import { BookOpenText, Home, PlusSquare, Search } from 'lucide-react';
+import { BookOpenText, Home, PlusSquare, Search, TrendingUp } from 'lucide-react'; // Added TrendingUp
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
+import { cn } from '@/lib/utils'; // Ensure cn is imported
 
 export function Header() {
   const pathname = usePathname();
@@ -47,7 +49,7 @@ export function Header() {
             href="/"
             className={cn(
               'flex items-center gap-1 transition-colors hover:text-foreground/80',
-              isActive('/') ? 'text-foreground' : 'text-foreground/60'
+              isActive('/') ? 'text-foreground font-semibold' : 'text-foreground/60' // Added font-semibold for active
             )}
           >
             <Home className="h-4 w-4" />
@@ -57,17 +59,27 @@ export function Header() {
             href="/discover"
             className={cn(
               'flex items-center gap-1 transition-colors hover:text-foreground/80',
-              isActive('/discover') ? 'text-foreground' : 'text-foreground/60'
+              isActive('/discover') ? 'text-foreground font-semibold' : 'text-foreground/60' // Added font-semibold for active
             )}
           >
             <Search className="h-4 w-4" />
             Discover
           </Link>
           <Link
+            href="/trending" // Added Trending link
+            className={cn(
+              'flex items-center gap-1 transition-colors hover:text-foreground/80',
+              isActive('/trending') ? 'text-foreground font-semibold' : 'text-foreground/60' // Added font-semibold for active
+            )}
+          >
+            <TrendingUp className="h-4 w-4" />
+            Trending
+          </Link>
+          <Link
             href="/create"
             className={cn(
               'flex items-center gap-1 transition-colors hover:text-foreground/80',
-              isActive('/create') ? 'text-foreground' : 'text-foreground/60'
+              isActive('/create') ? 'text-foreground font-semibold' : 'text-foreground/60' // Added font-semibold for active
             )}
           >
             <PlusSquare className="h-4 w-4" />
@@ -98,6 +110,4 @@ export function Header() {
   );
 }
 
-function cn(...classes: (string | boolean | undefined)[]): string {
-  return classes.filter(Boolean).join(' ');
-}
+// Removed duplicate cn function as it should be imported from utils
