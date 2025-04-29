@@ -21,7 +21,7 @@ import {
   SidebarSeparator,
 } from '@/components/ui/sidebar'; // Import Sidebar components
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // Import Avatar
-import { Edit, Library, Rss, User } from 'lucide-react'; // Import icons, added Rss for subscriptions
+import { Edit, Library, MessageSquare, Rss, User } from 'lucide-react'; // Import icons, added Rss for subscriptions and MessageSquare for messages
 import Link from 'next/link';
 import { getUserSubscriptions, AuthorSubscription } from '@/lib/placeholder-data'; // Import subscription data fetcher
 import { Suspense } from 'react';
@@ -103,6 +103,14 @@ export default function RootLayout({
                          <Link href="/my-stories">
                              <Library />
                              <span>My Stories</span>
+                         </Link>
+                       </SidebarMenuButton>
+                    </SidebarMenuItem>
+                     <SidebarMenuItem>
+                       <SidebarMenuButton asChild isActive={false} tooltip="Messages">
+                         <Link href="/messages">
+                             <MessageSquare />
+                             <span>Messages</span>
                          </Link>
                        </SidebarMenuButton>
                     </SidebarMenuItem>
