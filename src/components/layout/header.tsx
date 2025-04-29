@@ -43,7 +43,8 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between gap-4">
          {/* Sidebar Trigger - Placed at the beginning */}
          <div className="flex items-center gap-2">
-            <SidebarTrigger className="md:hidden" /> {/* Show trigger on mobile */}
+            {/* Removed md:hidden to make trigger always visible */}
+            <SidebarTrigger />
             <Link href="/" className="flex items-center gap-2">
               <BookOpenText className="h-6 w-6 text-primary" />
               <span className="font-bold text-lg hidden sm:inline">Story Weaver</span>
