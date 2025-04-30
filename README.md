@@ -1,6 +1,6 @@
-# StorySpark
+# StoryWeaver
 
-## Welcome to StorySpark!
+## Welcome to StoryWeaver!
 
 StorySpark is a platform for discovering, creating, and sharing short stories. Whether you're an aspiring writer looking for inspiration or a reader eager to explore new tales, StorySpark offers a vibrant community and a rich collection of narratives.
 
@@ -8,7 +8,7 @@ StorySpark is a platform for discovering, creating, and sharing short stories. W
 
 Welcome to the exciting world of StorySpark! This guide is crafted to help absolute beginners set up and run StorySpark on their local machines. We'll break down each step into easy-to-understand actions. Let's get started!
 
-### What is StorySpark?
+### What is StoryWeaver?
 
 StorySpark is a place where stories come to life. You can discover amazing short stories, write your own, and share them with a community of fellow story lovers. It's designed to be fun and inspiring, whether you're just starting to write or you're a seasoned author.
 
@@ -45,7 +45,7 @@ Before you begin, make sure you have the following installed:
         3.  If it's installed, you'll see a version number.
 
 
-### Getting StorySpark on Your Computer: Installation and Setup
+### Getting StoryWeaver on Your Computer: Installation and Setup
 
 Now that you have the tools, let's get StorySpark onto your computer!
 
