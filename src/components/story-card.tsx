@@ -4,14 +4,13 @@ import type { Story } from '@/lib/placeholder-data';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Heart, MessageSquare } from 'lucide-react'; // Import icons
-import { formatNumber } from '@/lib/utils'; // Import number formatter
+import { Eye, Heart, MessageSquare } from 'lucide-react';
+import { formatNumber } from '@/lib/utils';
 
 interface StoryCardProps {
   story: Story;
@@ -19,46 +18,51 @@ interface StoryCardProps {
 
 export function StoryCard({ story }: StoryCardProps) {
   return (
-    <Link href={`/story/${story.id}`} className="block group">
-      <Card className="overflow-hidden h-full flex flex-col transition-shadow duration-200 group-hover:shadow-md">
-        <CardHeader className="p-0 relative aspect-[2/3] w-full">
-           <Image
+    <Link href={`/story/${story.id}`} className="block group h-full">
+      <Card className="h-full flex flex-col overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/20 hover:-translate-y-1">
+        <CardHeader className="p-0 relative aspect-[3/4] overflow-hidden">
+          <Image
             src={story.coverImageUrl}
             alt={`Cover for ${story.title}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover"
-            priority={false} // Avoid making all cards priority
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            priority={false}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+
+          <div className="absolute bottom-3 left-3 right-3">
+            <Badge variant="secondary" className="mb-2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border-0">
+              {story.category}
+            </Badge>
+          </div>
         </CardHeader>
-        <CardContent className="p-4 flex-grow">
-          <CardTitle className="text-lg font-semibold mb-1 leading-tight group-hover:text-primary transition-colors">
+        <CardContent className="p-5 flex-grow flex flex-col gap-2">
+          <CardTitle className="text-xl font-bold leading-snug group-hover:text-primary transition-colors line-clamp-2">
             {story.title}
           </CardTitle>
-          <CardDescription className="text-sm text-muted-foreground line-clamp-1 mb-2">
-            by {story.author}
-          </CardDescription>
-           <p className="text-sm text-foreground/80 line-clamp-3 mb-3">
-             {story.description}
-           </p>
-           {/* Stats Row */}
-           <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                <div className="flex items-center gap-1">
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>{formatNumber(story.viewCount)}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                    <Heart className="w-3.5 h-3.5" />
-                    <span>{formatNumber(story.likeCount)}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>{formatNumber(story.comments.length)}</span>
-                </div>
-            </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
+            <span className="font-medium text-foreground/80">by {story.author}</span>
+          </div>
+          <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+            {story.description}
+          </p>
         </CardContent>
-        <CardFooter className="p-4 pt-2"> {/* Adjusted padding */}
-          <Badge variant="secondary">{story.category}</Badge>
+        <CardFooter className="p-5 pt-0 border-t border-border/30 mt-auto flex items-center justify-between text-xs text-muted-foreground">
+          <div className="flex items-center gap-4 pt-4">
+            <div className="flex items-center gap-1.5">
+              <Eye className="w-4 h-4" />
+              <span>{formatNumber(story.viewCount)}</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-primary/80">
+              <Heart className="w-4 h-4 fill-primary/20" />
+              <span>{formatNumber(story.likeCount)}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <MessageSquare className="w-4 h-4" />
+              <span>{formatNumber(story.comments.length)}</span>
+            </div>
+          </div>
         </CardFooter>
       </Card>
     </Link>

@@ -52,7 +52,7 @@ export default function RootLayout({
     <html lang="en" className="h-full" suppressHydrationWarning>
       <body
         className={cn(
-          'h-full font-sans antialiased',
+          'h-full font-sans antialiased bg-background text-foreground selection:bg-primary/20',
           geistSans.variable,
           geistMono.variable
         )}
@@ -65,85 +65,87 @@ export default function RootLayout({
         >
           {/* Wrap with SidebarProvider */}
           <SidebarProvider>
-            <Sidebar>
-              <SidebarHeader>
-                {/* Placeholder User Profile */}
-                 <div className="flex items-center gap-3 p-2">
-                    <Avatar className="h-10 w-10">
-                      {/* <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" /> */}
-                      <AvatarFallback>U</AvatarFallback> {/* Placeholder Initial */}
-                    </Avatar>
-                    <div className="flex flex-col">
-                       <span className="font-semibold text-sm">Username</span>
-                       <span className="text-xs text-muted-foreground">View Profile</span>
-                    </div>
-                 </div>
+            <Sidebar className="border-r border-border/40 bg-background/60 backdrop-blur-xl">
+              <SidebarHeader className="border-b border-border/20 p-4">
+                {/* User Profile */}
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer group">
+                  <Avatar className="h-10 w-10 border-2 border-primary/20 group-hover:border-primary transition-colors">
+                    {/* <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" /> */}
+                    <AvatarFallback className="bg-primary/10 text-primary font-bold">U</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-sm group-hover:text-primary transition-colors">Username</span>
+                    <span className="text-xs text-muted-foreground">View Profile</span>
+                  </div>
+                </div>
               </SidebarHeader>
-              <SidebarContent>
-                 {/* User Section */}
-                 <SidebarMenu>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={false} tooltip="Your Profile">
-                        <Link href="/profile">
-                            <User />
-                            <span>Profile</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                       <SidebarMenuButton asChild isActive={false} tooltip="Edit Your Profile">
-                         <Link href="/profile/edit"> {/* Assuming an edit page */}
-                             <Edit />
-                             <span>Edit Profile</span>
-                         </Link>
-                       </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                       <SidebarMenuButton asChild isActive={false} tooltip="Your Published Stories">
-                         <Link href="/my-stories">
-                             <Library />
-                             <span>My Stories</span>
-                         </Link>
-                       </SidebarMenuButton>
-                    </SidebarMenuItem>
-                     <SidebarMenuItem>
-                       <SidebarMenuButton asChild isActive={false} tooltip="Messages">
-                         <Link href="/messages">
-                             <MessageSquare />
-                             <span>Messages</span>
-                         </Link>
-                       </SidebarMenuButton>
-                    </SidebarMenuItem>
-                 </SidebarMenu>
+              <SidebarContent className="px-2 py-4">
+                {/* User Section */}
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild isActive={false} tooltip="Your Profile" className="hover:bg-primary/10 hover:text-primary transition-colors data-[active=true]:bg-primary/10 data-[active=true]:text-primary">
+                      <Link href="/profile">
+                        <User className="w-5 h-5" />
+                        <span className="font-medium">Profile</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild isActive={false} tooltip="Edit Your Profile" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                      <Link href="/profile/edit">
+                        <Edit className="w-5 h-5" />
+                        <span className="font-medium">Edit Profile</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild isActive={false} tooltip="Your Published Stories" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                      <Link href="/my-stories">
+                        <Library className="w-5 h-5" />
+                        <span className="font-medium">My Stories</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild isActive={false} tooltip="Messages" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                      <Link href="/messages">
+                        <MessageSquare className="w-5 h-5" />
+                        <span className="font-medium">Messages</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
 
-                 <SidebarSeparator />
+                <SidebarSeparator className="my-4 bg-border/40" />
 
                 {/* Subscriptions Section */}
-                 <SidebarGroup>
-                    <SidebarGroupLabel className="flex items-center gap-2">
-                        <Rss /> Subscriptions
-                    </SidebarGroupLabel>
-                     <Suspense fallback={<SubscriptionListSkeleton />}>
-                        <SubscriptionList />
-                    </Suspense>
-                 </SidebarGroup>
+                <SidebarGroup>
+                  <SidebarGroupLabel className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-2 px-2">
+                    <Rss className="w-4 h-4" /> Subscriptions
+                  </SidebarGroupLabel>
+                  <Suspense fallback={<SubscriptionListSkeleton />}>
+                    <SubscriptionList />
+                  </Suspense>
+                </SidebarGroup>
 
               </SidebarContent>
-              <SidebarFooter>
-                 {/* Sidebar Footer content if needed */}
+              <SidebarFooter className="border-t border-border/20 p-4">
               </SidebarFooter>
             </Sidebar>
 
             {/* Wrap main content and footer with SidebarInset */}
-            <SidebarInset className="flex flex-col">
-                <Header />
-                <main className="flex-grow container mx-auto px-4 py-8">
-                  {children}
-                </main>
-                 <Toaster />
-                <footer className="py-4 text-center text-muted-foreground text-sm mt-auto">
-                   © {new Date().getFullYear()} Story Weaver. All rights reserved.
-                </footer>
+            <SidebarInset className="flex flex-col bg-background/50 backdrop-blur-3xl min-h-screen">
+              <Header />
+              <main className="flex-grow container mx-auto px-4 py-8 max-w-7xl animate-fade-in">
+                {children}
+              </main>
+              <Toaster />
+              <footer className="py-8 text-center text-muted-foreground text-sm border-t border-border/20 mt-auto bg-background/40 backdrop-blur-sm">
+                <div className="flex flex-col items-center gap-2">
+                  <p>© {new Date().getFullYear()} Story Weaver.</p>
+                  <p className="text-xs opacity-70">Crafted with passion for storytellers.</p>
+                </div>
+              </footer>
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>
@@ -155,43 +157,43 @@ export default function RootLayout({
 
 // Component to fetch and display subscriptions
 async function SubscriptionList() {
-    const subscriptions = await getUserSubscriptions();
+  const subscriptions = await getUserSubscriptions();
 
-    if (!subscriptions || subscriptions.length === 0) {
-        return <p className="px-2 text-sm text-muted-foreground">No subscriptions yet.</p>;
-    }
+  if (!subscriptions || subscriptions.length === 0) {
+    return <p className="px-2 text-sm text-muted-foreground">No subscriptions yet.</p>;
+  }
 
-    return (
-        <SidebarMenu>
-            {subscriptions.map((sub) => (
-                <SidebarMenuItem key={sub.authorId}>
-                    {/* Link to author's profile page (assuming /author/[authorId] route) */}
-                    <SidebarMenuButton asChild tooltip={sub.authorName} size="sm">
-                        {/* Placeholder link, adjust href structure as needed */}
-                        <Link href={`/author/${encodeURIComponent(sub.authorId)}`}>
-                            <Avatar className="h-5 w-5">
-                                {sub.authorAvatar && <AvatarImage src={sub.authorAvatar} alt={sub.authorName} />}
-                                <AvatarFallback className="text-xs">{sub.authorName.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <span>{sub.authorName}</span>
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            ))}
-        </SidebarMenu>
-    );
+  return (
+    <SidebarMenu>
+      {subscriptions.map((sub) => (
+        <SidebarMenuItem key={sub.authorId}>
+          {/* Link to author's profile page (assuming /author/[authorId] route) */}
+          <SidebarMenuButton asChild tooltip={sub.authorName} size="sm">
+            {/* Placeholder link, adjust href structure as needed */}
+            <Link href={`/author/${encodeURIComponent(sub.authorId)}`}>
+              <Avatar className="h-5 w-5">
+                {sub.authorAvatar && <AvatarImage src={sub.authorAvatar} alt={sub.authorName} />}
+                <AvatarFallback className="text-xs">{sub.authorName.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <span>{sub.authorName}</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      ))}
+    </SidebarMenu>
+  );
 }
 
 // Skeleton loader for the subscription list
 function SubscriptionListSkeleton() {
-    return (
-        <div className="space-y-1 px-2">
-            {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex items-center gap-2 h-7">
-                    <Skeleton className="h-5 w-5 rounded-full" />
-                    <Skeleton className="h-4 w-3/4" />
-                </div>
-            ))}
+  return (
+    <div className="space-y-1 px-2">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="flex items-center gap-2 h-7">
+          <Skeleton className="h-5 w-5 rounded-full" />
+          <Skeleton className="h-4 w-3/4" />
         </div>
-    );
+      ))}
+    </div>
+  );
 }
