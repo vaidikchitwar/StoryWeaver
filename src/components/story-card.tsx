@@ -11,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Eye, Heart, MessageSquare } from 'lucide-react';
 import { formatNumber } from '@/lib/utils';
+import { BookmarkButton } from '@/components/bookmark-button';
 
 interface StoryCardProps {
   story: Story;
@@ -30,6 +31,10 @@ export function StoryCard({ story }: StoryCardProps) {
             priority={false}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+
+          <div className="absolute top-3 right-3 z-20">
+            <BookmarkButton story={story} className="text-white hover:bg-white/20 hover:text-white" />
+          </div>
 
           <div className="absolute bottom-3 left-3 right-3">
             <Badge variant="secondary" className="mb-2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border-0">

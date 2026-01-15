@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import { getStories, getCategories } from '@/lib/placeholder-data';
 import { StoryCard } from '@/components/story-card';
-import { SearchBar } from './_components/search-bar';
-import { CategoryFilter } from './_components/category-filter';
+import { SearchBar } from '@/components/search-bar';
+import { CategoryFilter } from '@/components/category-filter';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Eye, Heart, MessageSquare } from 'lucide-react';
 
@@ -21,13 +21,14 @@ export default function DiscoverPage({ searchParams }: DiscoverPageProps) {
     <div className="space-y-8">
       <h1 className="text-3xl font-bold">Discover Stories</h1>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-6 items-center">
-        {/* Wrap Filters in Suspense for better UX */}
-        <Suspense fallback={<Skeleton className="h-10 w-full md:w-[180px] lg:w-[200px]" />}>
-           <CategoryFilterWrapper selectedCategory={selectedCategory} />
+      <div className="flex flex-col gap-6 mb-8">
+        <Suspense fallback={<Skeleton className="h-10 w-full" />}>
+          <SearchBar placeholder="Search for stories, authors, or genres..." className="max-w-xl mx-auto" />
         </Suspense>
-        <Suspense fallback={<Skeleton className="h-10 flex-grow" />}>
-           <SearchBar initialQuery={searchTerm} />
+
+        {/* Wrap Filters in Suspense for better UX */}
+        <Suspense fallback={<Skeleton className="h-14 w-full" />}>
+          <CategoryFilterWrapper selectedCategory={selectedCategory} />
         </Suspense>
       </div>
 
@@ -75,20 +76,20 @@ function StoryGridSkeleton() {
         <div key={i} className="border rounded-lg overflow-hidden flex flex-col">
           <Skeleton className="aspect-[2/3] w-full" />
           <div className="p-4 flex-grow space-y-2">
-              <Skeleton className="h-5 w-3/4" /> {/* Title */}
-              <Skeleton className="h-4 w-1/2" /> {/* Author */}
-              <Skeleton className="h-4 w-full" /> {/* Description line 1 */}
-              <Skeleton className="h-4 w-5/6" /> {/* Description line 2 */}
-              {/* Stats Skeleton */}
-              <div className="flex items-center gap-4 pt-1">
-                 <Skeleton className="h-4 w-10" />
-                 <Skeleton className="h-4 w-10" />
-                 <Skeleton className="h-4 w-10" />
-              </div>
+            <Skeleton className="h-5 w-3/4" /> {/* Title */}
+            <Skeleton className="h-4 w-1/2" /> {/* Author */}
+            <Skeleton className="h-4 w-full" /> {/* Description line 1 */}
+            <Skeleton className="h-4 w-5/6" /> {/* Description line 2 */}
+            {/* Stats Skeleton */}
+            <div className="flex items-center gap-4 pt-1">
+              <Skeleton className="h-4 w-10" />
+              <Skeleton className="h-4 w-10" />
+              <Skeleton className="h-4 w-10" />
+            </div>
           </div>
-           <div className="p-4 pt-2"> {/* Footer */}
-              <Skeleton className="h-5 w-1/4" /> {/* Badge */}
-           </div>
+          <div className="p-4 pt-2"> {/* Footer */}
+            <Skeleton className="h-5 w-1/4" /> {/* Badge */}
+          </div>
         </div>
       ))}
     </div>

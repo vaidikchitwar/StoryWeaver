@@ -21,9 +21,9 @@ export type Story = {
 };
 
 export type AuthorSubscription = {
-    authorId: string; // Corresponds to Story.author
-    authorName: string;
-    authorAvatar?: string;
+  authorId: string; // Corresponds to Story.author
+  authorName: string;
+  authorAvatar?: string;
 };
 
 export const categories = [
@@ -38,18 +38,18 @@ export const categories = [
 ];
 
 const generateComments = (storyId: string, count: number): Comment[] => {
-    const comments: Comment[] = [];
-    const authors = ['ReaderFan', 'BookWorm', 'StoryLover', 'CritiqueMaster', 'Anonymous'];
-    for (let i = 0; i < count; i++) {
-        comments.push({
-            id: `${storyId}-comment-${i+1}`,
-            author: authors[Math.floor(Math.random() * authors.length)],
-            // avatarUrl: `https://picsum.photos/seed/${storyId}-${i}/40/40`, // Can add later if needed
-            timestamp: new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 7), // Random time in last week
-            text: `This is comment number ${i+1} for story ${storyId}. ${['Great story!', 'Interesting plot.', 'Loved the characters.', 'Couldn\'t put it down!', 'Needs more work.'][Math.floor(Math.random() * 5)]}`
-        });
-    }
-    return comments.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()); // Sort newest first
+  const comments: Comment[] = [];
+  const authors = ['ReaderFan', 'BookWorm', 'StoryLover', 'CritiqueMaster', 'Anonymous'];
+  for (let i = 0; i < count; i++) {
+    comments.push({
+      id: `${storyId}-comment-${i + 1}`,
+      author: authors[Math.floor(Math.random() * authors.length)],
+      // avatarUrl: `https://picsum.photos/seed/${storyId}-${i}/40/40`, // Can add later if needed
+      timestamp: new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 7), // Random time in last week
+      text: `This is comment number ${i + 1} for story ${storyId}. ${['Great story!', 'Interesting plot.', 'Loved the characters.', 'Couldn\'t put it down!', 'Needs more work.'][Math.floor(Math.random() * 5)]}`
+    });
+  }
+  return comments.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()); // Sort newest first
 }
 
 
@@ -119,7 +119,7 @@ export const placeholderStories: Story[] = [
     comments: generateComments("5", 6), // Added
     content: `Station Log: Day 63\n\nThe core sample came up... wrong. We hit something deep beneath the glacier, something that wasn't rock. Metallic, impossibly old. Dr. Anya Sharma thinks it's a vessel, maybe extraterrestrial. Excitement turned to dread when the tremors started. Power flickers. Comms are down. Outside, the blizzard rages, trapping us. Then, Peterson disappeared from the bio-lab. Just... vanished. Found his recorder later. Only screaming. We're not alone in this station. The ice didn't just preserve it. It contained it. And we just let it out. The scratching sounds are getting closer.`,
   },
-    {
+  {
     id: "6",
     title: "Crown of Embers",
     author: "Leo Heartwood",
@@ -158,7 +158,7 @@ export const placeholderStories: Story[] = [
     comments: generateComments("8", 9), // Added
     content: `Chapter 1: The Clash\n\nEliza slammed her violin case onto the grass, glaring at the stage. That was *her* practice slot. And currently occupying it was Julian Vance, guitar god extraordinaire and her arch-nemesis since kindergarten music class. His band's amplified rock music drowned out the pastoral tranquility of the Meadowbrook Summer Festival grounds. "Vance!" she yelled over the din. He stopped mid-riff, a smirk playing on his lips. "Well, if it isn't Maestro Montgomery. Come to bask in true musical genius?" Their rivalry was legendary, fueled by competitive parents and clashing styles. But as the summer unfolded, forced proximity during festival events led to grudging respect, shared late-night practice sessions, and a harmony neither of them expected.`,
   },
-   {
+  {
     id: "9",
     title: "Whispers in the Walls",
     author: "Edgar Allen Poe Jr.",
@@ -171,7 +171,7 @@ export const placeholderStories: Story[] = [
     comments: generateComments("9", 5), // Added
     content: `Day 1: The house stood on a hill overlooking the town, silhouetted against the perpetual grey sky. It was cheaper than anything else, for reasons the realtor politely avoided. Old houses have quirks, he'd said. Quirks. Like the cold spots that moved. Or the whispers that seemed to echo from within the walls themselves, just at the edge of hearing. Little Emily drew pictures of 'the smiling man' she saw in the hallway mirror. My wife, Sarah, blamed drafts and old pipes. I wanted to believe her. But last night, I heard it too. A child's giggle, coming from the boarded-up nursery. And the distinct sound of small footsteps pacing overhead. This house doesn't have quirks. It has occupants.`,
   },
-   {
+  {
     id: "10",
     title: "The Gilded Cage",
     author: "Victoria Holt II",
@@ -189,9 +189,9 @@ export const placeholderStories: Story[] = [
 // Placeholder for current user's subscriptions
 // In a real app, this would be fetched based on the logged-in user
 const placeholderUserSubscriptions: AuthorSubscription[] = [
-    { authorId: "Jane Doe", authorName: "Jane Doe", authorAvatar: "https://picsum.photos/seed/author_jane/40/40" },
-    { authorId: "Robert Black", authorName: "Robert Black", authorAvatar: "https://picsum.photos/seed/author_robert/40/40" },
-    { authorId: "Isabelle Moreau", authorName: "Isabelle Moreau", authorAvatar: "https://picsum.photos/seed/author_isabelle/40/40" },
+  { authorId: "Jane Doe", authorName: "Jane Doe", authorAvatar: "https://picsum.photos/seed/author_jane/40/40" },
+  { authorId: "Robert Black", authorName: "Robert Black", authorAvatar: "https://picsum.photos/seed/author_robert/40/40" },
+  { authorId: "Isabelle Moreau", authorName: "Isabelle Moreau", authorAvatar: "https://picsum.photos/seed/author_isabelle/40/40" },
 ];
 
 // Simulate fetching data
@@ -225,69 +225,83 @@ export const getStoryById = async (id: string): Promise<Story | undefined> => {
   const story = placeholderStories.find((story) => story.id === id);
   // Add author avatar to the fetched story if not already present (for consistency)
   if (story && !story.authorAvatar) {
-      const authorSub = placeholderUserSubscriptions.find(sub => sub.authorId === story.author);
-      if(authorSub?.authorAvatar) {
-          story.authorAvatar = authorSub.authorAvatar;
-      } else {
-          // Fallback if author isn't in subscriptions (might happen)
-          const otherStoryByAuthor = placeholderStories.find(s => s.author === story.author && s.authorAvatar);
-          if (otherStoryByAuthor) {
-              story.authorAvatar = otherStoryByAuthor.authorAvatar;
-          }
+    const authorSub = placeholderUserSubscriptions.find(sub => sub.authorId === story.author);
+    if (authorSub?.authorAvatar) {
+      story.authorAvatar = authorSub.authorAvatar;
+    } else {
+      // Fallback if author isn't in subscriptions (might happen)
+      const otherStoryByAuthor = placeholderStories.find(s => s.author === story.author && s.authorAvatar);
+      if (otherStoryByAuthor) {
+        story.authorAvatar = otherStoryByAuthor.authorAvatar;
       }
+    }
   }
   return story;
 };
 
 export const getCategories = async (): Promise<string[]> => {
-   await new Promise((resolve) => setTimeout(resolve, 100)); // Simulate network delay
-   return ["All", ...categories];
+  await new Promise((resolve) => setTimeout(resolve, 100)); // Simulate network delay
+  return ["All", ...categories];
 }
 
 export type TrendingStories = {
-    [genre: string]: Story[];
+  [genre: string]: Story[];
 }
 
 // Simulate fetching trending stories grouped by genre
 export const getTrendingStoriesByGenre = async (limitPerGenre: number = 3): Promise<TrendingStories> => {
-    await new Promise((resolve) => setTimeout(resolve, 700)); // Simulate network delay
+  await new Promise((resolve) => setTimeout(resolve, 700)); // Simulate network delay
 
-    const trending: TrendingStories = {};
+  const trending: TrendingStories = {};
 
-    for (const category of categories) {
-        const genreStories = placeholderStories
-            .filter(story => story.category === category)
-            .sort((a, b) => b.viewCount - a.viewCount) // Sort by viewCount descending
-            .slice(0, limitPerGenre); // Take top N
+  for (const category of categories) {
+    const genreStories = placeholderStories
+      .filter(story => story.category === category)
+      .sort((a, b) => b.viewCount - a.viewCount) // Sort by viewCount descending
+      .slice(0, limitPerGenre); // Take top N
 
-        if (genreStories.length > 0) {
-            trending[category] = genreStories;
-        }
+    if (genreStories.length > 0) {
+      trending[category] = genreStories;
     }
+  }
 
-    return trending;
+  return trending;
 };
+
+export const getTrendingStories = async (limit: number = 4): Promise<Story[]> => {
+  await new Promise((resolve) => setTimeout(resolve, 400));
+  return [...placeholderStories]
+    .sort((a, b) => b.viewCount - a.viewCount)
+    .slice(0, limit);
+}
+
+export const getNewArrivals = async (limit: number = 4): Promise<Story[]> => {
+  await new Promise((resolve) => setTimeout(resolve, 400));
+  // Simulating new arrivals by taking the last N stories (assuming simplified chronological order)
+  // In a real app, sort by publishedAt
+  return [...placeholderStories].reverse().slice(0, limit);
+}
 
 // Simulate fetching user's subscriptions
 export const getUserSubscriptions = async (): Promise<AuthorSubscription[]> => {
-    await new Promise(resolve => setTimeout(resolve, 200)); // Simulate network delay
-    // In a real app, fetch this based on the logged-in user ID
-    return placeholderUserSubscriptions;
+  await new Promise(resolve => setTimeout(resolve, 200)); // Simulate network delay
+  // In a real app, fetch this based on the logged-in user ID
+  return placeholderUserSubscriptions;
 }
 
 // Simulate adding/removing a subscription (no backend interaction)
 export const toggleSubscription = async (authorId: string, authorName: string, authorAvatar?: string): Promise<boolean> => {
-    await new Promise(resolve => setTimeout(resolve, 300)); // Simulate API call
-    const index = placeholderUserSubscriptions.findIndex(sub => sub.authorId === authorId);
-    if (index > -1) {
-        // Unsubscribe
-        placeholderUserSubscriptions.splice(index, 1);
-        console.log(`Unsubscribed from ${authorName}`);
-        return false; // Return new subscription state (false = not subscribed)
-    } else {
-        // Subscribe
-        placeholderUserSubscriptions.push({ authorId, authorName, authorAvatar });
-        console.log(`Subscribed to ${authorName}`);
-        return true; // Return new subscription state (true = subscribed)
-    }
+  await new Promise(resolve => setTimeout(resolve, 300)); // Simulate API call
+  const index = placeholderUserSubscriptions.findIndex(sub => sub.authorId === authorId);
+  if (index > -1) {
+    // Unsubscribe
+    placeholderUserSubscriptions.splice(index, 1);
+    console.log(`Unsubscribed from ${authorName}`);
+    return false; // Return new subscription state (false = not subscribed)
+  } else {
+    // Subscribe
+    placeholderUserSubscriptions.push({ authorId, authorName, authorAvatar });
+    console.log(`Subscribed to ${authorName}`);
+    return true; // Return new subscription state (true = subscribed)
+  }
 }

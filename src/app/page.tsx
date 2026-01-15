@@ -1,4 +1,4 @@
-import { getStories } from '@/lib/placeholder-data';
+import { getStories, getTrendingStories, getNewArrivals } from '@/lib/placeholder-data';
 import { StoryCard } from '@/components/story-card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -8,6 +8,8 @@ import { HeroSection } from '@/components/hero-section';
 export default async function Home() {
   // Fetch a few featured stories (e.g., the first 6 for a better grid)
   const featuredStories = (await getStories()).slice(0, 6);
+  const trendingStories = await getTrendingStories(4);
+  const newArrivals = await getNewArrivals(4);
 
   return (
     <div className="space-y-16 pb-16">
@@ -45,6 +47,38 @@ export default async function Home() {
               Explore All Stories
             </Link>
           </Button>
+        </div>
+      </section>
+
+      {/* Trending Stories */}
+      <section className="container px-4 md:px-6">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold tracking-tight">Trending Now</h2>
+          <Button asChild variant="ghost" className="hidden sm:flex group">
+            <Link href="/trending">
+              View Top Charts <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {trendingStories.map(story => (
+            <StoryCard key={story.id} story={story} />
+          ))}
+        </div>
+      </section>
+
+      {/* New Arrivals */}
+      <section className="container px-4 md:px-6 bg-muted/20 py-16 -mx-4 md:mx-0 rounded-[2rem]">
+        <div className="flex items-center justify-between mb-8">
+          <div className="space-y-1">
+            <h2 className="text-3xl font-bold tracking-tight">Fresh Off the Press</h2>
+            <p className="text-muted-foreground">The latest stories published by our community.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {newArrivals.map(story => (
+            <StoryCard key={story.id} story={story} />
+          ))}
         </div>
       </section>
 

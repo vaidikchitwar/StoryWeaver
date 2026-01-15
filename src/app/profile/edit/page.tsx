@@ -25,6 +25,9 @@ const profileFormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }).max(50),
   email: z.string().email({ message: 'Please enter a valid email.' }), // Keep email, maybe make read-only or handle verification separately
   bio: z.string().max(300, { message: 'Bio cannot exceed 300 characters.' }).optional(),
+  website: z.string().url({ message: 'Please enter a valid URL.' }).optional().or(z.literal('')),
+  twitter: z.string().optional(),
+  instagram: z.string().optional(),
   // avatarUrl: z.string().url().optional(), // Add later if implementing image upload
 });
 
@@ -32,10 +35,13 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // Placeholder data - replace with actual user data fetching
 const currentUser = {
-    name: "Placeholder User",
-    email: "user@example.com",
-    bio: "Avid reader and aspiring writer. Loves fantasy and sci-fi.",
-    avatarUrl: undefined, // "https://github.com/shadcn.png",
+  name: "Placeholder User",
+  email: "user@example.com",
+  bio: "Avid reader and aspiring writer. Loves fantasy and sci-fi.",
+  avatarUrl: undefined, // "https://github.com/shadcn.png",
+  website: "",
+  twitter: "",
+  instagram: "",
 };
 
 export default function EditProfilePage() {
@@ -75,21 +81,21 @@ export default function EditProfilePage() {
   return (
     <div className="max-w-2xl mx-auto">
       <Card>
-         <CardHeader>
-            <CardTitle className="text-2xl font-bold">Edit Profile</CardTitle>
-            <CardDescription>Update your profile information below.</CardDescription>
-         </CardHeader>
-         <CardContent>
-           <Form {...form}>
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Edit Profile</CardTitle>
+          <CardDescription>Update your profile information below.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 
               {/* Avatar Section - Placeholder for upload */}
               <div className="flex items-center gap-4 mb-6">
-                 <Avatar className="h-20 w-20">
-                   {currentUser.avatarUrl && <AvatarImage src={currentUser.avatarUrl} alt={currentUser.name} />}
-                   <AvatarFallback className="text-3xl">{currentUser.name?.charAt(0) || 'U'}</AvatarFallback>
-                 </Avatar>
-                 <Button type="button" variant="outline" disabled>Change Avatar (Soon)</Button>
+                <Avatar className="h-20 w-20">
+                  {currentUser.avatarUrl && <AvatarImage src={currentUser.avatarUrl} alt={currentUser.name} />}
+                  <AvatarFallback className="text-3xl">{currentUser.name?.charAt(0) || 'U'}</AvatarFallback>
+                </Avatar>
+                <Button type="button" variant="outline" disabled>Change Avatar (Soon)</Button>
               </div>
 
               <FormField
@@ -106,7 +112,7 @@ export default function EditProfilePage() {
                 )}
               />
 
-               <FormField
+              <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
@@ -116,7 +122,7 @@ export default function EditProfilePage() {
                       {/* Usually email is not directly editable or requires verification */}
                       <Input placeholder="your.email@example.com" {...field} readOnly disabled />
                     </FormControl>
-                     <p className="text-sm text-muted-foreground">Email cannot be changed here.</p>
+                    <p className="text-sm text-muted-foreground">Email cannot be changed here.</p>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -143,18 +149,18 @@ export default function EditProfilePage() {
 
 
               <div className="flex justify-end gap-2">
-                   <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>
-                        Cancel
-                   </Button>
-                   <Button type="submit" disabled={isSubmitting}>
-                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                     {isSubmitting ? 'Saving...' : 'Save Changes'}
-                   </Button>
+                <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {isSubmitting ? 'Saving...' : 'Save Changes'}
+                </Button>
               </div>
 
             </form>
           </Form>
-         </CardContent>
+        </CardContent>
       </Card>
     </div>
   );

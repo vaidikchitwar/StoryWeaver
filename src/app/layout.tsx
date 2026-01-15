@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { Footer } from '@/components/layout/footer';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/header';
 import { Toaster } from "@/components/ui/toaster";
@@ -140,12 +141,7 @@ export default function RootLayout({
                 {children}
               </main>
               <Toaster />
-              <footer className="py-8 text-center text-muted-foreground text-sm border-t border-border/20 mt-auto bg-background/40 backdrop-blur-sm">
-                <div className="flex flex-col items-center gap-2">
-                  <p>© {new Date().getFullYear()} Story Weaver.</p>
-                  <p className="text-xs opacity-70">Crafted with passion for storytellers.</p>
-                </div>
-              </footer>
+              <Footer />
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>
